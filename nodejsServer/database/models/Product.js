@@ -22,8 +22,14 @@ const insertProduct = async (name, description, imageURL) => {
         throw error
     }
 }
+function sleep(ms){
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
+}
 const queryProducts = async (text) => {
     try {        
+
         let products = await Product.find({
             $or: [
                 {
@@ -34,8 +40,9 @@ const queryProducts = async (text) => {
                     description: new RegExp(text, "i")
                 }
             ],                   
-        })
-        return products
+        })        
+        // await sleep(3000)
+        return products    
     } catch(error) {        
         throw error
     }
@@ -71,7 +78,7 @@ const updateProduct = async (productId,updatedProduct) => {
         throw error
     }
 }
-const deleteProduct = async (productId, tokenKey) => {
+const deleteProduct = async (productId) => {
     try {        
         let product = await Product.findById(productId)
         if (!product) {

@@ -25,7 +25,6 @@ router.use((req, res, next) => {
 router.post('/insertProduct', async (req, res) =>{
     let {name, description, imageURL} = req.body
     //Client phải gửi tokenKey
-    let tokenKey = req.headers['x-access-token']
     try {
         let newProduct = await insertProduct(name, description, imageURL)
         res.json({
@@ -113,9 +112,9 @@ router.put('/updateProduct', async (req, res) =>{
 })
 router.delete('/deleteProduct', async (req, res) =>{		
 	let {id} = req.body	
-	let tokenKey = req.headers['x-access-token']	
+	// let tokenKey = req.headers['x-access-token']	
     try {    	
-        await deleteProduct(id, tokenKey)
+        await deleteProduct(id)
         res.json({
             result: 'ok',
             message: 'Xoá thành công 1 Product',	  		
